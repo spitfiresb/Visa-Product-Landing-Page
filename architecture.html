@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIT System Architecture | Visa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --visa-blue: #1A1F71;
+            --visa-blue-light: #1434CB;
+            --visa-gold: #F7B600;
+            --text-primary: #1a1a1a;
+            --text-secondary: #5a5a5a;
+            --text-muted: #767676;
+            --border-color: #e5e5e5;
+            --bg-light: #f9f9f9;
+            --white: #ffffff;
+            --link-blue: #0066cc;
+            --layer-user: #E8F4FD;
+            --layer-protocol: #FFF8E1;
+            --layer-merchant: #E8F5E9;
+            --layer-visa: #EDE7F6;
+            --layer-decision: #FCE4EC;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.5;
+            color: var(--text-primary);
+            background: var(--white);
+            font-size: 14px;
+        }
+
+        a {
+            color: var(--link-blue);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Header */
+        .header {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 12px 24px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .logo svg {
+            height: 24px;
+            width: auto;
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 24px;
+        }
+
+        .header-nav a {
+            color: var(--text-primary);
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .header-nav a:hover {
+            text-decoration: none;
+            color: var(--visa-blue);
+        }
+
+        /* Page Title */
+        .page-header {
+            background: var(--visa-blue);
+            color: var(--white);
+            padding: 48px 24px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .page-header p {
+            font-size: 16px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Main Content */
+        .main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 48px 24px;
+        }
+
+        .section-intro {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .section-intro h2 {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        .section-intro p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Architecture Diagram */
+        .architecture-container {
+            background: var(--bg-light);
+            border-radius: 12px;
+            padding: 40px;
+            border: 1px solid var(--border-color);
+        }
+
+        .architecture-layer {
+            display: flex;
+            align-items: stretch;
+            margin-bottom: 0;
+            position: relative;
+        }
+
+        .layer-label {
+            width: 180px;
+            min-width: 180px;
+            padding: 20px 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-radius: 8px 0 0 8px;
+            position: relative;
+        }
+
+        .layer-label h3 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--visa-blue);
+            margin-bottom: 4px;
+        }
+
+        .layer-label p {
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .layer-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px 24px;
+            border-radius: 0 8px 8px 0;
+            min-height: 100px;
+        }
+
+        /* Layer Colors */
+        .layer-user .layer-label { background: #1565C0; }
+        .layer-user .layer-label h3,
+        .layer-user .layer-label p { color: var(--white); }
+        .layer-user .layer-content { background: var(--layer-user); }
+
+        .layer-protocol .layer-label { background: #F9A825; }
+        .layer-protocol .layer-label h3,
+        .layer-protocol .layer-label p { color: var(--text-primary); }
+        .layer-protocol .layer-content { background: var(--layer-protocol); }
+
+        .layer-merchant .layer-label { background: #2E7D32; }
+        .layer-merchant .layer-label h3,
+        .layer-merchant .layer-label p { color: var(--white); }
+        .layer-merchant .layer-content { background: var(--layer-merchant); }
+
+        .layer-visa .layer-label { background: var(--visa-blue); }
+        .layer-visa .layer-label h3,
+        .layer-visa .layer-label p { color: var(--white); }
+        .layer-visa .layer-content { background: var(--layer-visa); }
+        .layer-visa .component { width: 140px; }
+
+        .layer-decision .layer-label { background: #C2185B; }
+        .layer-decision .layer-label h3,
+        .layer-decision .layer-label p { color: var(--white); }
+        .layer-decision .layer-content { background: var(--layer-decision); }
+
+        /* Component Boxes */
+        .component {
+            background: var(--white);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px 20px;
+            min-width: 140px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .component h4 {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .component p {
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .component-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--visa-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 8px;
+            color: var(--white);
+            font-size: 14px;
+        }
+
+        /* Flow Arrows Between Layers */
+        .flow-connector {
+            display: flex;
+            justify-content: center;
+            padding: 8px 0;
+        }
+
+        .flow-arrow {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--visa-blue);
+        }
+
+        .flow-arrow svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .flow-arrow span {
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* Horizontal Arrows */
+        .arrow-right {
+            display: flex;
+            align-items: center;
+            color: var(--visa-blue);
+            padding: 0 8px;
+        }
+
+        .arrow-right svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Data Flow Indicator */
+        .data-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--visa-gold);
+            color: var(--text-primary);
+            font-size: 9px;
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: 10px;
+        }
+
+        /* AIT Data Box */
+        .ait-data-box {
+            background: var(--white);
+            border: 2px solid var(--visa-blue);
+            border-radius: 8px;
+            padding: 16px 20px;
+            min-width: 180px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .ait-data-box h4 {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .ait-data-box ul {
+            list-style: none;
+            font-size: 10px;
+            color: var(--text-muted);
+        }
+
+        .ait-data-box li {
+            padding: 2px 0;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-light);
+            border-top: 1px solid var(--border-color);
+            padding: 32px 24px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-copy {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .back-link {
+            font-size: 13px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .architecture-layer {
+                flex-direction: column;
+            }
+
+            .layer-label {
+                width: 100%;
+                border-radius: 8px 8px 0 0;
+                padding: 16px;
+            }
+
+            .layer-content {
+                border-radius: 0 0 8px 8px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-top">
+            <div class="header-left">
+                <div class="logo">
+                    <svg width="60" height="20" viewBox="0 0 1336 430" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        aria-label="Visa Home">
+                        <path fill="#1434CB"
+                            d="M507.369 7.60031L332.588 423.495H218.557L132.547 91.592C127.325 71.1489 122.785 63.6595 106.904 55.0468C80.9894 41.0181 38.172 27.8632 0.5 19.6942L3.05875 7.60031H186.614C210.012 7.60031 231.045 23.1338 236.357 50.0053L281.782 290.663L394.047 7.60031H507.369ZM954.17 287.709C954.629 177.942 801.98 171.895 803.03 122.86C803.356 107.937 817.603 92.0705 848.788 88.0207C864.245 86.0028 906.833 84.4633 955.136 106.633L974.083 18.4391C948.127 9.0427 914.732 0 873.18 0C766.554 0 691.515 56.5308 690.883 137.478C690.194 197.351 744.443 230.762 785.313 250.658C827.359 271.031 841.466 284.124 841.307 302.348C841.008 330.246 807.772 342.562 776.712 343.047C722.492 343.879 691.029 328.415 665.949 316.786L646.397 407.899C671.602 419.432 718.125 429.494 766.359 430C879.688 430 953.822 374.17 954.17 287.709ZM1235.73 423.502H1335.5L1248.41 7.60031H1156.32C1135.62 7.60031 1118.15 19.6249 1110.42 38.1125L948.545 423.495H1061.82L1084.31 361.368H1222.71L1235.74 423.495L1235.73 423.502ZM1115.36 276.135L1172.14 119.982L1204.82 276.135H1115.37H1115.36ZM661.506 7.60031L572.304 423.495H464.433L553.67 7.60031H661.506Z" />
+                    </svg>
+                </div>
+                <nav class="header-nav">
+                    <a href="index.html">Product Overview</a>
+                    <a href="architecture.html" style="color: var(--visa-blue);">Architecture</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1>Agent Identity Token Architecture</h1>
+        <p>Layered system architecture showing how AITs flow from user authorization through Visa validation</p>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="section-intro">
+            <h2>AIT Transaction Flow</h2>
+            <p>The Agent Identity Token flows through five distinct layers, from initial user authorization to final transaction decision. Each layer adds verification and trust to the process.</p>
+        </div>
+
+        <div class="architecture-container">
+            <!-- Layer 1: User/Agent Layer -->
+            <div class="architecture-layer layer-user">
+                <div class="layer-label">
+                    <h3>User & Agent Layer</h3>
+                    <p>Authorization origin</p>
+                </div>
+                <div class="layer-content" style="justify-content: center;">
+                    <div class="component">
+                        <div class="component-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                        </div>
+                        <h4>Cardholder</h4>
+                        <p>Grants permission</p>
+                    </div>
+                    <div class="arrow-right">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </div>
+                    <div class="component">
+                        <div class="component-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                                <line x1="8" y1="21" x2="16" y2="21"/>
+                                <line x1="12" y1="17" x2="12" y2="21"/>
+                            </svg>
+                        </div>
+                        <h4>AI Agent</h4>
+                        <p>Acts on behalf of user</p>
+                    </div>
+                    <div class="arrow-right">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </div>
+                    <div class="component">
+                        <div class="component-icon" style="background: #1565C0;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                            </svg>
+                        </div>
+                        <h4>Authorization</h4>
+                        <p>Spending limits, time window</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Flow Connector -->
+            <div class="flow-connector">
+                <div class="flow-arrow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 5v14M5 12l7 7 7-7"/>
+                    </svg>
+                    <span>User signature attached</span>
+                </div>
+            </div>
+
+            <!-- Layer 2: Protocol Layer -->
+            <div class="architecture-layer layer-protocol">
+                <div class="layer-label">
+                    <h3>Protocol Layer</h3>
+                    <p>AIT Generation</p>
+                </div>
+                <div class="layer-content" style="justify-content: center;">
+                    <div class="component">
+                        <div class="component-icon" style="background: #F9A825;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                                <polyline points="14 2 14 8 20 8"/>
+                                <line x1="16" y1="13" x2="8" y2="13"/>
+                                <line x1="16" y1="17" x2="8" y2="17"/>
+                            </svg>
+                        </div>
+                        <h4>Open Protocol</h4>
+                        <p>e.g., Google AP2</p>
+                    </div>
+                    <div class="arrow-right">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </div>
+                    <div class="ait-data-box">
+                        <h4>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                            </svg>
+                            AIT Generated
+                        </h4>
+                        <ul>
+                            <li>Agent ID & Platform ID</li>
+                            <li>User Authorization Scope</li>
+                            <li>Transaction Details</li>
+                            <li>Cryptographic Signatures</li>
+                        </ul>
+                    </div>
+                    <div class="arrow-right">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </div>
+                    <div class="component">
+                        <div class="component-icon" style="background: #F9A825;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="2">
+                                <polyline points="9 11 12 14 22 4"/>
+                                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                            </svg>
+                        </div>
+                        <h4>User Approves</h4>
+                        <p>Confirms purchase</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Flow Connector -->
+            <div class="flow-connector">
+                <div class="flow-arrow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 5v14M5 12l7 7 7-7"/>
+                    </svg>
+                    <span>AIT transmitted with order</span>
+                </div>
+            </div>
+
+            <!-- Layer 3: Merchant Layer -->
+            <div class="architecture-layer layer-merchant">
+                <div class="layer-label">
+                    <h3>Merchant Layer</h3>
+                    <p>Transaction initiation</p>
+                </div>
+                <div class="layer-content" style="justify-content: center;">
+                    <div class="component">
+                        <div class="component-icon" style="background: #2E7D32;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                                <polyline points="9 22 9 12 15 12 15 22"/>
+                            </svg>
+                        </div>
+                        <h4>Merchant</h4>
+                        <p>Receives order</p>
+                    </div>
+                    <div class="arrow-right">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </div>
+                    <div class="component">
+                        <div class="component-icon" style="background: #2E7D32;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/>
+                            </svg>
+                        </div>
+                        <h4>Merchant Signs</h4>
+                        <p>Adds commitment</p>
+                    </div>
+                    <div class="arrow-right">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </div>
+                    <div class="component">
+                        <div class="component-icon" style="background: #2E7D32;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+                                <line x1="1" y1="10" x2="23" y2="10"/>
+                            </svg>
+                        </div>
+                        <h4>Auth Request</h4>
+                        <p>AIT + payment data</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Flow Connector -->
+            <div class="flow-connector">
+                <div class="flow-arrow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 5v14M5 12l7 7 7-7"/>
+                    </svg>
+                    <span>Submitted to VisaNet</span>
+                </div>
+            </div>
+
+            <!-- Layer 4: Visa Validation Layer -->
+            <div class="architecture-layer layer-visa">
+                <div class="layer-label">
+                    <h3>Visa Validation</h3>
+                    <p>Trust verification</p>
+                </div>
+                <div class="layer-content">
+                    <div class="component">
+                        <div class="component-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                <polyline points="22 4 12 14.01 9 11.01"/>
+                            </svg>
+                        </div>
+                        <h4>Signature Check</h4>
+                        <p>Verify cryptographic proofs</p>
+                    </div>
+                    <div class="arrow-right">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </div>
+                    <div class="component">
+                        <div class="component-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="1" x2="12" y2="23"/>
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                            </svg>
+                        </div>
+                        <h4>Limit Validation</h4>
+                        <p>Check spending limits</p>
+                    </div>
+                    <div class="arrow-right">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </div>
+                    <div class="component">
+                        <div class="component-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                        </div>
+                        <h4>Time Window</h4>
+                        <p>Verify valid period</p>
+                    </div>
+                    <div class="arrow-right">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </div>
+                    <div class="component">
+                        <div class="component-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                            </svg>
+                        </div>
+                        <h4>Fraud Scoring</h4>
+                        <p>Network intelligence</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Flow Connector -->
+            <div class="flow-connector">
+                <div class="flow-arrow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 5v14M5 12l7 7 7-7"/>
+                    </svg>
+                    <span>Validation complete</span>
+                </div>
+            </div>
+
+            <!-- Layer 5: Authorization Decision Layer -->
+            <div class="architecture-layer layer-decision">
+                <div class="layer-label">
+                    <h3>Decision Layer</h3>
+                    <p>Authorization outcome</p>
+                </div>
+                <div class="layer-content">
+                    <div class="component" style="border-color: #4CAF50; border-width: 2px;">
+                        <div class="component-icon" style="background: #4CAF50;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                        </div>
+                        <h4>Approved</h4>
+                        <p>Valid AIT, within limits</p>
+                    </div>
+                    <div class="component" style="border-color: #FF9800; border-width: 2px;">
+                        <div class="component-icon" style="background: #FF9800;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <line x1="12" y1="8" x2="12" y2="12"/>
+                                <line x1="12" y1="16" x2="12.01" y2="16"/>
+                            </svg>
+                        </div>
+                        <h4>Challenge</h4>
+                        <p>Additional verification</p>
+                    </div>
+                    <div class="component" style="border-color: #f44336; border-width: 2px;">
+                        <div class="component-icon" style="background: #f44336;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="18" y1="6" x2="6" y2="18"/>
+                                <line x1="6" y1="6" x2="18" y2="18"/>
+                            </svg>
+                        </div>
+                        <h4>Declined</h4>
+                        <p>Invalid or fraud detected</p>
+                    </div>
+                    <div class="arrow-right">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </div>
+                    <div class="component">
+                        <div class="component-icon" style="background: #C2185B;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="17 8 12 3 7 8"/>
+                                <line x1="12" y1="3" x2="12" y2="15"/>
+                            </svg>
+                        </div>
+                        <h4>Response</h4>
+                        <p>Back to merchant</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-bottom">
+                <span class="footer-copy">&copy; 2025 Visa. All rights reserved.</span>
+                <a href="index.html" class="back-link">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5M12 19l-7-7 7-7"/>
+                    </svg>
+                    Back to Product Overview
+                </a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
