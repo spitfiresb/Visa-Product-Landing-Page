@@ -822,9 +822,427 @@
             color: var(--text-muted);
         }
 
+        /* AIT Comparison Slider - New Design */
+        .ait-comparison-section {
+            padding: 60px 24px;
+            background: linear-gradient(135deg, #1a1f3c 0%, #2a3a6e 50%, #1a2850 100%);
+        }
+
+        .ait-comparison-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .ait-section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .ait-section-header h2 {
+            font-size: 2.75rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 16px;
+        }
+
+        .ait-section-header p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .ait-slider-wrapper {
+            position: relative;
+            display: flex;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.4);
+            user-select: none;
+        }
+
+        /* Left Panel - Today */
+        .ait-panel-today {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #e8e9ed;
+            display: flex;
+            z-index: 2;
+            clip-path: inset(0 50% 0 0);
+        }
+
+        .ait-panel-today-content {
+            width: 50%;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        /* Right Panel - With AIT */
+        .ait-panel-ait {
+            width: 100%;
+            display: flex;
+            background: linear-gradient(180deg, #2a3f7a 0%, #1e2d5a 100%);
+            z-index: 1;
+        }
+
+        .ait-panel-ait-spacer {
+            width: 50%;
+        }
+
+        .ait-panel-ait-content {
+            width: 50%;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        /* Comparison Items */
+        .ait-comparison-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .ait-item-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .ait-item-icon svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        .ait-panel-today .ait-item-icon svg {
+            color: #4a5568;
+        }
+
+        .ait-panel-ait .ait-item-icon svg {
+            color: #ffffff;
+        }
+
+        .ait-item-content {
+            display: flex;
+            flex-direction: row;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 16px;
+            flex: 1;
+        }
+
+        .ait-item-headline {
+            font-size: 1rem;
+            font-weight: 600;
+            line-height: 1.4;
+            flex-shrink: 0;
+        }
+
+        .ait-item-scenario {
+            font-size: 0.9rem;
+            font-weight: 400;
+            line-height: 1.4;
+            font-style: italic;
+            text-align: right;
+        }
+
+        /* Today panel: headline left, scenario far right */
+        .ait-panel-today .ait-item-headline {
+            color: #374151;
+        }
+
+        .ait-panel-today .ait-item-scenario {
+            color: #6b7280;
+            text-align: right;
+        }
+
+        /* AIT panel: scenario far left, headline right */
+        .ait-panel-ait .ait-item-content {
+            flex-direction: row-reverse;
+        }
+
+        .ait-panel-ait .ait-item-headline {
+            color: #ffffff;
+        }
+
+        .ait-panel-ait .ait-item-scenario {
+            color: rgba(255, 255, 255, 0.7);
+            text-align: left;
+        }
+
+        .ait-item-text {
+            font-size: 1rem;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+
+        .ait-panel-today .ait-item-text {
+            color: #374151;
+        }
+
+        .ait-panel-ait .ait-item-text {
+            color: #ffffff;
+        }
+
+        /* Center Slider Handle */
+        .ait-slider-handle {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            z-index: 10;
+            cursor: ew-resize;
+        }
+
+        .ait-slider-handle::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: -20px;
+            right: -20px;
+        }
+
+        .ait-visa-pill {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #ffffff;
+            padding: 10px 14px;
+            border-radius: 30px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .ait-visa-pill:hover {
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .ait-chevron {
+            color: #1a1f71;
+            opacity: 0.4;
+            display: flex;
+            align-items: center;
+        }
+
+        .ait-chevron svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .ait-visa-logo {
+            padding: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .ait-visa-logo svg {
+            width: 50px;
+            height: auto;
+        }
+
+        /* Instructions */
+        .ait-slider-instructions {
+            text-align: center;
+            margin-top: 20px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .ait-slider-instructions svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .ait-section-header h2 {
+                font-size: 2rem;
+            }
+
+            .ait-section-header p {
+                font-size: 1rem;
+            }
+
+            .ait-slider-wrapper {
+                flex-direction: column;
+                border-radius: 16px;
+                overflow: hidden;
+            }
+
+            .ait-panel-today {
+                position: relative;
+                clip-path: none !important;
+                width: 100%;
+                border-radius: 0;
+                overflow: hidden;
+                order: 1;
+            }
+
+            .ait-panel-today-content {
+                width: 100%;
+                padding: 32px 24px;
+            }
+
+            .ait-panel-ait {
+                flex-direction: column;
+                border-radius: 0;
+                overflow: hidden;
+                order: 3;
+            }
+
+            .ait-panel-ait-spacer {
+                display: none;
+            }
+
+            .ait-panel-ait-content {
+                width: 100%;
+                padding: 32px 24px;
+            }
+
+            .ait-slider-handle {
+                display: none;
+            }
+
+            .ait-slider-instructions {
+                display: none;
+            }
+
+            .ait-comparison-item {
+                gap: 12px;
+            }
+
+            .ait-item-icon {
+                width: 40px;
+                height: 40px;
+            }
+
+            .ait-item-icon svg {
+                width: 26px;
+                height: 26px;
+            }
+
+            .ait-item-text {
+                font-size: 0.95rem;
+            }
+
+            .ait-item-content {
+                flex-direction: column !important;
+                gap: 4px;
+            }
+
+            .ait-item-headline {
+                font-size: 0.95rem;
+            }
+
+            .ait-item-scenario {
+                font-size: 0.8rem;
+                text-align: left !important;
+            }
+
+            /* Mobile: show as stacked cards with divider */
+            .ait-mobile-divider {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 12px 0;
+                background: linear-gradient(180deg, #e8e9ed 0%, #e8e9ed 50%, #2a3f7a 50%, #2a3f7a 100%);
+                position: relative;
+                z-index: 5;
+                order: 2;
+            }
+
+            .ait-mobile-divider .ait-visa-pill {
+                position: relative;
+                top: auto;
+                left: auto;
+                transform: none;
+                flex-direction: row;
+                padding: 8px 16px;
+                gap: 8px;
+            }
+
+            .ait-mobile-divider .ait-chevron {
+                display: none;
+            }
+        }
+
+        @media (min-width: 901px) {
+            .ait-mobile-divider {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .ait-comparison-section {
+                padding: 40px 16px;
+            }
+
+            .ait-section-header {
+                margin-bottom: 24px;
+            }
+
+            .ait-section-header h2 {
+                font-size: 1.6rem;
+            }
+
+            .ait-section-header p {
+                font-size: 0.9rem;
+            }
+
+            .ait-panel-today-content,
+            .ait-panel-ait-content {
+                padding: 24px 20px;
+                gap: 20px;
+            }
+
+            .ait-item-icon {
+                width: 36px;
+                height: 36px;
+            }
+
+            .ait-item-icon svg {
+                width: 22px;
+                height: 22px;
+            }
+
+            .ait-item-text {
+                font-size: 0.875rem;
+            }
+
+            .ait-item-headline {
+                font-size: 0.875rem;
+            }
+
+            .ait-item-scenario {
+                font-size: 0.75rem;
+            }
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
-
             .services-grid,
             .dashboard-grid,
             .resources-grid,
@@ -915,6 +1333,7 @@
     <nav class="sub-nav">
         <div class="sub-nav-container">
             <a href="#framework" class="active">Overview</a>
+            <a href="#comparison">Today vs AIT</a>
             <a href="#data-scheme">AIT Data Structure</a>
             <a href="#lifecycle">How It Works</a>
             <a href="#stakeholders">Benefits</a>
@@ -943,7 +1362,177 @@
                 Open protocols generate AITs. Visa validates them—ensuring every agent transaction is authorized, secure, and protected.
             </p>
         </section>
+    </main>
 
+    <!-- AIT Comparison Slider Section -->
+    <section class="ait-comparison-section" id="comparison">
+        <div class="ait-comparison-container">
+            <div class="ait-section-header">
+                <h2>Today vs With AIT</h2>
+                <p>See how Agent Identity Tokens transform agent commerce.</p>
+            </div>
+
+            <div class="ait-slider-wrapper" id="aitSliderWrapper">
+                <!-- Right Panel (With AIT) - Base layer -->
+                <div class="ait-panel-ait">
+                    <div class="ait-panel-ait-spacer"></div>
+                    <div class="ait-panel-ait-content">
+                        <div class="ait-comparison-item">
+                            <div class="ait-item-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                    <path d="M9 12l2 2 4-4"/>
+                                </svg>
+                            </div>
+                            <div class="ait-item-content">
+                                <div class="ait-item-headline">Cryptographic ID for verified agents</div>
+                                <div class="ait-item-scenario">Signed identity from Anthropic, Google, or OpenAI—verified in milliseconds</div>
+                            </div>
+                        </div>
+                        <div class="ait-comparison-item">
+                            <div class="ait-item-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                            </div>
+                            <div class="ait-item-content">
+                                <div class="ait-item-headline">Real-time validation of authorizations</div>
+                                <div class="ait-item-scenario">Proof that user authorized "up to $500 for electronics" with timestamp</div>
+                            </div>
+                        </div>
+                        <div class="ait-comparison-item">
+                            <div class="ait-item-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M5 12.55a11 11 0 0 1 14.08 0"/>
+                                    <path d="M1.42 9a16 16 0 0 1 21.16 0"/>
+                                    <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
+                                    <line x1="12" y1="20" x2="12.01" y2="20"/>
+                                </svg>
+                            </div>
+                            <div class="ait-item-content">
+                                <div class="ait-item-headline">Instant fraud detection & prevention</div>
+                                <div class="ait-item-scenario">Spending limits and agent reputation checked before money moves</div>
+                            </div>
+                        </div>
+                        <div class="ait-comparison-item">
+                            <div class="ait-item-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="2"/>
+                                    <path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"/>
+                                </svg>
+                            </div>
+                            <div class="ait-item-content">
+                                <div class="ait-item-headline">Automated dispute resolution & cost reduction</div>
+                                <div class="ait-item-scenario">Signed evidence determines liability in seconds, not weeks</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Left Panel (Today) - Clipped layer -->
+                <div class="ait-panel-today" id="aitPanelToday">
+                    <div class="ait-panel-today-content">
+                        <div class="ait-comparison-item">
+                            <div class="ait-item-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                                    <line x1="12" y1="9" x2="12" y2="13"/>
+                                    <line x1="12" y1="17" x2="12.01" y2="17"/>
+                                </svg>
+                            </div>
+                            <div class="ait-item-content">
+                                <div class="ait-item-headline">No way to verify which agent made a purchase</div>
+                                <div class="ait-item-scenario">Claude, Gemini, or a rogue bot—merchants can't tell the difference</div>
+                            </div>
+                        </div>
+                        <div class="ait-comparison-item">
+                            <div class="ait-item-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                                    <circle cx="12" cy="16" r="1"/>
+                                    <line x1="10" y1="14" x2="14" y2="18"/>
+                                    <line x1="14" y1="14" x2="10" y2="18"/>
+                                </svg>
+                            </div>
+                            <div class="ait-item-content">
+                                <div class="ait-item-headline">Authorization is ambiguous - unclear if user approved</div>
+                                <div class="ait-item-scenario">Customer disputes $500 purchase. No proof they ever authorized that amount.</div>
+                            </div>
+                        </div>
+                        <div class="ait-comparison-item">
+                            <div class="ait-item-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                    <line x1="12" y1="8" x2="12" y2="12"/>
+                                    <line x1="12" y1="16" x2="12.01" y2="16"/>
+                                </svg>
+                            </div>
+                            <div class="ait-item-content">
+                                <div class="ait-item-headline">Fraud caught only after the fact</div>
+                                <div class="ait-item-scenario">Compromised agent makes 50 purchases before anyone notices</div>
+                            </div>
+                        </div>
+                        <div class="ait-comparison-item">
+                            <div class="ait-item-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                    <path d="M12 2v20"/>
+                                    <path d="M8 12l8-4"/>
+                                </svg>
+                            </div>
+                            <div class="ait-item-content">
+                                <div class="ait-item-headline">Disputes rely on costly chargebacks</div>
+                                <div class="ait-item-scenario">$25-50 per dispute, weeks to resolve, often inconclusive</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile Divider (shown only on mobile, inside wrapper for ordering) -->
+                <div class="ait-mobile-divider">
+                    <div class="ait-visa-pill">
+                        <div class="ait-visa-logo">
+                            <svg viewBox="0 0 1336 430" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill="#1A1F71" d="M507.369 7.60031L332.588 423.495H218.557L132.547 91.592C127.325 71.1489 122.785 63.6595 106.904 55.0468C80.9894 41.0181 38.172 27.8632 0.5 19.6942L3.05875 7.60031H186.614C210.012 7.60031 231.045 23.1338 236.357 50.0053L281.782 290.663L394.047 7.60031H507.369ZM954.17 287.709C954.629 177.942 801.98 171.895 803.03 122.86C803.356 107.937 817.603 92.0705 848.788 88.0207C864.245 86.0028 906.833 84.4633 955.136 106.633L974.083 18.4391C948.127 9.0427 914.732 0 873.18 0C766.554 0 691.515 56.5308 690.883 137.478C690.194 197.351 744.443 230.762 785.313 250.658C827.359 271.031 841.466 284.124 841.307 302.348C841.008 330.246 807.772 342.562 776.712 343.047C722.492 343.879 691.029 328.415 665.949 316.786L646.397 407.899C671.602 419.432 718.125 429.494 766.359 430C879.688 430 953.822 374.17 954.17 287.709ZM1235.73 423.502H1335.5L1248.41 7.60031H1156.32C1135.62 7.60031 1118.15 19.6249 1110.42 38.1125L948.545 423.495H1061.82L1084.31 361.368H1222.71L1235.74 423.495L1235.73 423.502ZM1115.36 276.135L1172.14 119.982L1204.82 276.135H1115.37H1115.36ZM661.506 7.60031L572.304 423.495H464.433L553.67 7.60031H661.506Z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slider Handle with Visa Logo -->
+                <div class="ait-slider-handle" id="aitSliderHandle">
+                    <div class="ait-visa-pill">
+                        <div class="ait-chevron">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="15 6 9 12 15 18"/>
+                            </svg>
+                        </div>
+                        <div class="ait-visa-logo">
+                            <svg viewBox="0 0 1336 430" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill="#1A1F71" d="M507.369 7.60031L332.588 423.495H218.557L132.547 91.592C127.325 71.1489 122.785 63.6595 106.904 55.0468C80.9894 41.0181 38.172 27.8632 0.5 19.6942L3.05875 7.60031H186.614C210.012 7.60031 231.045 23.1338 236.357 50.0053L281.782 290.663L394.047 7.60031H507.369ZM954.17 287.709C954.629 177.942 801.98 171.895 803.03 122.86C803.356 107.937 817.603 92.0705 848.788 88.0207C864.245 86.0028 906.833 84.4633 955.136 106.633L974.083 18.4391C948.127 9.0427 914.732 0 873.18 0C766.554 0 691.515 56.5308 690.883 137.478C690.194 197.351 744.443 230.762 785.313 250.658C827.359 271.031 841.466 284.124 841.307 302.348C841.008 330.246 807.772 342.562 776.712 343.047C722.492 343.879 691.029 328.415 665.949 316.786L646.397 407.899C671.602 419.432 718.125 429.494 766.359 430C879.688 430 953.822 374.17 954.17 287.709ZM1235.73 423.502H1335.5L1248.41 7.60031H1156.32C1135.62 7.60031 1118.15 19.6249 1110.42 38.1125L948.545 423.495H1061.82L1084.31 361.368H1222.71L1235.74 423.495L1235.73 423.502ZM1115.36 276.135L1172.14 119.982L1204.82 276.135H1115.37H1115.36ZM661.506 7.60031L572.304 423.495H464.433L553.67 7.60031H661.506Z"/>
+                            </svg>
+                        </div>
+                        <div class="ait-chevron">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="9 6 15 12 9 18"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ait-slider-instructions">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+                Drag the handle to compare
+            </div>
+        </div>
+    </section>
+
+    <main class="main" style="padding-top: 24px;">
         <!-- Stakeholder Benefits -->
         <section class="section" id="stakeholders">
             <h2 class="section-title">Why the AIT is useful</h2>
@@ -1284,6 +1873,98 @@
         backToTopBtn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+
+        // AIT Comparison Slider functionality
+        const aitWrapper = document.getElementById('aitSliderWrapper');
+        const aitHandle = document.getElementById('aitSliderHandle');
+        const aitPanelToday = document.getElementById('aitPanelToday');
+
+        if (aitWrapper && aitHandle && aitPanelToday) {
+            let isDragging = false;
+            let sliderPosition = 50;
+
+            function updateSlider(percent) {
+                percent = Math.max(5, Math.min(95, percent));
+                sliderPosition = percent;
+                aitHandle.style.left = `${percent}%`;
+                aitPanelToday.style.clipPath = `inset(0 ${100 - percent}% 0 0)`;
+            }
+
+            function getPercentFromEvent(e) {
+                const rect = aitWrapper.getBoundingClientRect();
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                return ((clientX - rect.left) / rect.width) * 100;
+            }
+
+            // Mouse events
+            aitHandle.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                e.preventDefault();
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                updateSlider(getPercentFromEvent(e));
+            });
+
+            document.addEventListener('mouseup', () => {
+                isDragging = false;
+            });
+
+            // Touch events
+            aitHandle.addEventListener('touchstart', (e) => {
+                isDragging = true;
+            });
+
+            document.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                updateSlider(getPercentFromEvent(e));
+            });
+
+            document.addEventListener('touchend', () => {
+                isDragging = false;
+            });
+
+            // Click on wrapper to jump
+            aitWrapper.addEventListener('click', (e) => {
+                if (e.target === aitHandle || e.target.closest('.ait-visa-pill')) return;
+                animateSlider(getPercentFromEvent(e));
+            });
+
+            // Smooth animation helper
+            function animateSlider(targetPercent, duration = 400) {
+                const startPercent = sliderPosition;
+                const startTime = performance.now();
+
+                function animate(currentTime) {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    const currentPercent = startPercent + (targetPercent - startPercent) * eased;
+                    updateSlider(currentPercent);
+
+                    if (progress < 1) {
+                        requestAnimationFrame(animate);
+                    }
+                }
+
+                requestAnimationFrame(animate);
+            }
+
+            // Initial position
+            updateSlider(50);
+
+            // Initial animation on page load
+            setTimeout(() => {
+                animateSlider(70, 600);
+                setTimeout(() => {
+                    animateSlider(30, 600);
+                    setTimeout(() => {
+                        animateSlider(50, 400);
+                    }, 700);
+                }, 700);
+            }, 800);
+        }
     </script>
 </body>
 
