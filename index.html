@@ -659,6 +659,37 @@
             color: rgba(255, 255, 255, 0.7);
         }
 
+        /* Right align "After AIT" content for symmetry */
+        .ait-panel-ait .ait-comparison-item {
+            flex-direction: row-reverse;
+            text-align: right;
+        }
+
+        .ait-panel-ait .ait-item-content {
+            align-items: flex-end;
+            text-align: right;
+        }
+
+        /* Panel Titles - Added for Before/After Context */
+        .ait-panel-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            /* Reduced from 24px because of gap in parent */
+            text-align: left;
+            line-height: 1.2;
+        }
+
+        .ait-panel-today .ait-panel-title {
+            color: #1a1f71;
+            /* Visa Blue */
+        }
+
+        .ait-panel-ait .ait-panel-title {
+            color: #ffffff;
+            text-align: right;
+        }
+
         /* Slider Handle */
         .ait-slider-handle {
             position: absolute;
@@ -927,6 +958,7 @@
 
                 <div class="ait-panel-ait">
                     <div class="ait-panel-ait-content">
+                        <h3 class="ait-panel-title">After AIT</h3>
                         <div class="ait-comparison-item">
                             <div class="ait-item-icon">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -991,6 +1023,7 @@
 
                 <div class="ait-panel-today" id="aitPanelToday">
                     <div class="ait-panel-today-content">
+                        <h3 class="ait-panel-title">Before AIT</h3>
                         <div class="ait-comparison-item">
                             <div class="ait-item-icon">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
